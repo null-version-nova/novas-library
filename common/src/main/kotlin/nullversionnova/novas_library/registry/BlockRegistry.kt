@@ -1,13 +1,13 @@
 package nullversionnova.novas_library.registry
 
-import net.minecraft.core.Registry
+import net.minecraft.core.registries.Registries
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 import nullversionnova.novas_library.util.RegistryDelegate
 
-open class BlockRegistry(id: String) : GenericRegistry<Block>(id, Registry.BLOCK_REGISTRY) {
-    private val items = GenericRegistry<Item>(id,Registry.ITEM_REGISTRY)
+open class BlockRegistry(id: String) : GenericRegistry<Block>(id, Registries.BLOCK) {
+    private val items = GenericRegistry<Item>(id,Registries.ITEM)
 
     fun registerWithItem(path : String, constructor : () -> Block) : RegistryDelegate<out Block> {
         val block = register(path,constructor)
