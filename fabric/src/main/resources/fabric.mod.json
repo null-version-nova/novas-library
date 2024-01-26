@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "novas_library",
   "version": "${version}",
-  "name": "Nova's Library",
+  "name": "${mod_name}",
   "description": "Kotlin's a really pretty programming language, and not a whole lot of libraries take advantage of that. Here's a kotlin abstraction library for Architectury.",
   "authors": [
     "null-version_nova"
@@ -22,7 +22,7 @@
   ],
   "depends": {
     "fabric": "*",
-    "minecraft": ">=1.18.2",
-    "architectury": ">=4.11.93"
+    "minecraft": ">=${minecraft_version}",
+    "architectury": ">=${architectury_version}"
   }
 }
