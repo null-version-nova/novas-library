@@ -35,7 +35,7 @@ processResources {
     def replaceProperties= [
             mod_id: mod_id,
             version: project.version,
-            mod_name: archives_base_name,
+            mod_name: mod_name,
             minecraft_version: minecraft_version,
             architectury_version: architectury_version
     ]
@@ -75,7 +75,8 @@ components.java {
 publishing {
     publications {
         mavenFabric(MavenPublication) {
-            artifactId = rootProject.archives_base_name + "-" + project.name
+            artifactId = rootProject.archives_base_name + "-" + project.name + "-" + minecraft_version
+            print(artifactId)
             from components.java
         }
     }

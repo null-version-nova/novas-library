@@ -8,7 +8,7 @@ class RegistryDelegate<T>(supplier: RegistrySupplier<T>) {
         if (supplier.isPresent) {
             supplier.get()
         } else {
-            throw Exception("Accessed an uninitialized registry object at ${supplier.registryId}")
+            throw Exception("Accessed an uninitialized registry object at ${supplier.id}")
         }
     }
     operator fun getValue(thisRef: Any?, property: KProperty<*>) : T {
