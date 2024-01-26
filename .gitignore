@@ -1,0 +1,14 @@
+build/
+*.ipr
+run/
+*.iws
+out/
+*.iml
+output/
+bin/
+libs/
+
+classes/
+*.launch
+
+**/.*

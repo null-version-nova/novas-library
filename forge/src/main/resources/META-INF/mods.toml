@@ -1,0 +1,35 @@
+modLoader = "kotlinforforge"
+loaderVersion = "[3,)"
+#issueTrackerURL = ""
+license = "MIT"
+
+[[mods]]
+modId = "novas_library"
+version = "${version}"
+displayName = "Nova's Library"
+authors = "null-version_nova"
+description = '''
+Kotlin's a really pretty programming language, and not a whole lot of libraries take advantage of that. Here's a kotlin abstraction library for Architectury.
+'''
+#logoFile = ""
+
+[[dependencies.novas_library]]
+modId = "forge"
+mandatory = true
+versionRange = "[40,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.novas_library]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18.2,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.novas_library]]
+modId = "architectury"
+mandatory = true
+versionRange = "[4.11.93,)"
+ordering = "AFTER"
+side = "BOTH"

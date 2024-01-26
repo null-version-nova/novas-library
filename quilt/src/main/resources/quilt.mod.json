@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "mixin": [
+    "${mod_id}.mixins.json",
+    "${mod_id}-common.mixins.json"
+  ],
+  "quilt_loader": {
+    "group": "${group}",
+    "id": "${mod_id}",
+    "version": "${version}",
+    "metadata": {
+      "name": "Nova's Library",
+      "description": "Kotlin's a really pretty programming language, and not a whole lot of libraries take advantage of that. Here's a kotlin abstraction library for Architectury.",
+      "contributors": {
+        "Me!": "Owner"
+      },
+      "contact": {
+        "sources": "https://github.com/architectury/architectury-templates"
+      },
+      "icon": "assets/${mod_id}/icon.png"
+    },
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "entrypoints": {
+    },
+    "depends": [
+      {
+        "id": "quilt_loader",
+        "version": "*"
+      },
+      {
+        "id": "quilt_base",
+        "version": "*"
+      },
+      {
+        "id": "minecraft",
+        "version": ">=1.18.2"
+      },
+      {
+        "id": "architectury",
+        "version": ">=4.11.93"
+      }
+    ]
+  },
+  "minecraft": {
+    "environment": "*"
+  }
+}
