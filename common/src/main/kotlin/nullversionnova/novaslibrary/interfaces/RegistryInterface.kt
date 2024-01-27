@@ -1,6 +1,6 @@
-package nullversionnova.novas_library.interfaces
+package nullversionnova.novaslibrary.interfaces
 
-import nullversionnova.novas_library.util.RegistryDelegate
+import nullversionnova.novaslibrary.util.RegistryDelegate
 
 interface RegistryInterface<T> : Iterable<T> {
     val namespace : String

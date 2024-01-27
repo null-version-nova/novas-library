@@ -1,10 +1,10 @@
-package nullversionnova.novas_library.registry
+package nullversionnova.novaslibrary.registry
 
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
-import nullversionnova.novas_library.util.RegistryDelegate
+import nullversionnova.novaslibrary.util.RegistryDelegate
 
 open class BlockRegistry(id: String) : GenericRegistry<Block>(id, Registries.BLOCK) {
     private val items = GenericRegistry<Item>(id,Registries.ITEM)

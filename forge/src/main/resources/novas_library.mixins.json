@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "nullversionnova.novas_library.mixin.forge",
+  "package": "nullversionnova.novaslibrary.mixin.forge",
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [

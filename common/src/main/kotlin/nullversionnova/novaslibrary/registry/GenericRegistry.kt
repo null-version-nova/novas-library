@@ -1,11 +1,11 @@
-package nullversionnova.novas_library.registry
+package nullversionnova.novaslibrary.registry
 
 import dev.architectury.registry.registries.DeferredRegister
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
-import nullversionnova.novas_library.interfaces.RegistryInterface
-import nullversionnova.novas_library.util.RegistryDelegate
-import nullversionnova.novas_library.util.RegistryIterator
+import nullversionnova.novaslibrary.interfaces.RegistryInterface
+import nullversionnova.novaslibrary.util.RegistryDelegate
+import nullversionnova.novaslibrary.util.RegistryIterator
 
 
 open class GenericRegistry<T>(id: String,key : ResourceKey<Registry<T>>) : RegistryInterface<T>, Iterable<T> {

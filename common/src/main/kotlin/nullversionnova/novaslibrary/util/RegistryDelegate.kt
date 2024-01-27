@@ -1,4 +1,4 @@
-package nullversionnova.novas_library.util
+package nullversionnova.novaslibrary.util
 
 import dev.architectury.registry.registries.RegistrySupplier
 import kotlin.reflect.KProperty
