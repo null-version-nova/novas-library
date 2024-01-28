@@ -22,7 +22,7 @@ configurations {
 
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}+${rootProject.minecraft_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
 
@@ -92,3 +92,32 @@ repositories {
 kotlin {
     jvmToolchain(17)
 }
+
+apply plugin: "com.igormaznitsa.jcp"
+
+preprocess {
+    sources = [file('src/main')]
+    allowWhitespaces = false
+    fileExtensions = ['java','kt']
+    keepComments = 'remove_jcp_only'
+    keepLines = false
+    verbose = true
+    vars = ['MC': rootProject.mcVersion]
+    target = file('src/processed')
+    print(outcomingFiles.getAsFileTree())
+    outputs.upToDateWhen { false }
+}
+
+tasks.register("changeSourceFolder") {
+    sourceSets {
+        main {
+            kotlin {
+                srcDirs = ['src/processed/kotlin']
+            }
+        }
+    }
+    outputs.upToDateWhen { false }
+}.get().dependsOn(preprocess)
+
+compileKotlin.dependsOn(changeSourceFolder)
+compileJava.dependsOn(changeSourceFolder)

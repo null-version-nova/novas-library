@@ -42,7 +42,7 @@ configurations {
 
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
-    implementation 'thedarkcolour:kotlinforforge:4.10.0'
+    implementation "thedarkcolour:kotlinforforge:${rootProject.kotlin_for_forge_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
 
@@ -104,3 +104,35 @@ publishing {
         // Add repositories to publish to here.
     }
 }
+
+apply plugin: "com.igormaznitsa.jcp"
+
+preprocess {
+    sources = [file('src/main')]
+    allowWhitespaces = false
+    fileExtensions = ['java','kt']
+    keepComments = 'remove_jcp_only'
+    keepLines = false
+    verbose = true
+    vars = ['MC': rootProject.mcVersion]
+    target = file('src/processed')
+    print(outcomingFiles.getAsFileTree())
+    outputs.upToDateWhen { false }
+}
+
+tasks.register("changeSourceFolder") {
+    sourceSets {
+        main {
+            kotlin {
+                srcDirs = ['src/processed/kotlin']
+            }
+//            resources {
+//                srcDirs = ['src/processed/resources']
+//            }
+        }
+    }
+    outputs.upToDateWhen { false }
+}.get().dependsOn(preprocess)
+
+compileKotlin.dependsOn(changeSourceFolder)
+compileJava.dependsOn(changeSourceFolder)
