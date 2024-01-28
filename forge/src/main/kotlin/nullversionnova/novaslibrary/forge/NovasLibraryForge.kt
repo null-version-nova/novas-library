@@ -2,8 +2,6 @@ package nullversionnova.novaslibrary.forge
 
 import dev.architectury.platform.forge.EventBuses
 import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.registries.NewRegistryEvent
-import net.minecraftforge.registries.RegisterEvent
 import nullversionnova.novaslibrary.NovasLibrary
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 

@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.igormaznitsa:jcp:7.1.1"
+    }
+}
+
+
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "1.4-SNAPSHOT" apply false
@@ -28,6 +38,11 @@ subprojects {
 }
 
 allprojects {
+    def mcVersion
+    def (major, minor, patch) = project.minecraft_version.tokenize('-')[0].tokenize('.')
+    mcVersion = "${major}${minor.padLeft(2, '0')}${(patch ?: '').padLeft(2, '0')}" as int
+    project.ext.mcVersion=mcVersion
+
     apply plugin: "java"
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
@@ -56,3 +71,27 @@ allprojects {
         withSourcesJar()
     }
 }
+print(project.mcVersion)
+def architectury_version = [
+        11802: "4.11.93",
+        12001: "9.1.12"
+][project.mcVersion]
+project.ext.architectury_version = architectury_version
+
+def forge_version = [
+        11802: "40.2.10",
+        12001: "47.2.19"
+][project.mcVersion]
+project.ext.forge_version = forge_version
+
+def kotlin_for_forge_version = [
+        11802: "3.12.0",
+        12001: "4.10.0"
+][project.mcVersion]
+project.ext.kotlin_for_forge_version = kotlin_for_forge_version
+
+def fabric_api_version = [
+        11802: "0.76.0",
+        12001: "0.91.0"
+][project.mcVersion]
+project.ext.fabric_api_version = fabric_api_version
