@@ -40,6 +40,14 @@ kotlin {
     jvmToolchain(17)
 }
 
+sourceSets {
+    main {
+        kotlin {
+            srcDirs = ['src/processed/kotlin']
+        }
+    }
+}
+
 apply plugin: "com.igormaznitsa.jcp"
 
 preprocess {
@@ -55,16 +63,5 @@ preprocess {
     outputs.upToDateWhen { false }
 }
 
-tasks.register("changeSourceFolder") {
-    sourceSets {
-        main {
-            kotlin {
-                srcDirs = ['src/processed/kotlin']
-            }
-        }
-    }
-    outputs.upToDateWhen { false }
-}.get().dependsOn(preprocess)
-
-compileKotlin.dependsOn(changeSourceFolder)
-compileJava.dependsOn(changeSourceFolder)
+compileKotlin.dependsOn(preprocess)
+compileJava.dependsOn(preprocess)

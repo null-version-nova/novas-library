@@ -56,7 +56,9 @@ processResources {
             version: project.version,
             mod_name: mod_name,
             minecraft_version: minecraft_version,
-            architectury_version: architectury_version
+            architectury_version: architectury_version,
+            kotlin_for_forge_version: kotlin_for_forge_version.tokenize(".")[0],
+            forge_version: forge_version.tokenize(".")[0]
     ]
 
     inputs.properties replaceProperties
@@ -105,34 +107,29 @@ publishing {
     }
 }
 
+
+sourceSets {
+    main {
+        kotlin {
+            srcDirs = ['src/processed/kotlin']
+        }
+    }
+}
+
 apply plugin: "com.igormaznitsa.jcp"
 
 preprocess {
-    sources = [file('src/main')]
+    sources = [file('src/main/kotlin')]
     allowWhitespaces = false
     fileExtensions = ['java','kt']
     keepComments = 'remove_jcp_only'
     keepLines = false
     verbose = true
     vars = ['MC': rootProject.mcVersion]
-    target = file('src/processed')
+    target = file('src/processed/kotlin')
     print(outcomingFiles.getAsFileTree())
     outputs.upToDateWhen { false }
 }
 
-tasks.register("changeSourceFolder") {
-    sourceSets {
-        main {
-            kotlin {
-                srcDirs = ['src/processed/kotlin']
-            }
-//            resources {
-//                srcDirs = ['src/processed/resources']
-//            }
-        }
-    }
-    outputs.upToDateWhen { false }
-}.get().dependsOn(preprocess)
-
-compileKotlin.dependsOn(changeSourceFolder)
-compileJava.dependsOn(changeSourceFolder)
+compileKotlin.dependsOn(preprocess)
+compileJava.dependsOn(preprocess)

@@ -1,5 +1,5 @@
 modLoader = "kotlinforforge"
-loaderVersion = "[4,)"
+loaderVersion = "[${kotlin_for_forge_version},)"
 #issueTrackerURL = ""
 license = "MIT"
 
@@ -16,7 +16,7 @@ Kotlin's a really pretty programming language, and not a whole lot of libraries 
 [[dependencies.${mod_id}]]
 modId = "forge"
 mandatory = true
-versionRange = "[47,)"
+versionRange = "[${forge_version},)"
 ordering = "NONE"
 side = "BOTH"
 
