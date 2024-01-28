@@ -15,6 +15,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.8.21'
     // OPTIONAL Kotlin Serialization plugin
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.21'
+    id 'idea'
 }
 
 architectury {
@@ -34,6 +35,8 @@ subprojects {
         mappings loom.officialMojangMappings()
         // The following line declares the yarn mappings you may select this one as well.
         // mappings "net.fabricmc:yarn:1.18.2+build.4:v2"
+        annotationProcessor 'systems.manifold:manifold-preprocessor:2024.1.1'
+        testAnnotationProcessor 'systems.manifold:manifold-preprocessor:2024.1.1'
     }
 }
 

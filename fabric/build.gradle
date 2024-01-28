@@ -101,6 +101,13 @@ sourceSets {
     }
 }
 
+idea {
+    module {
+        sourceDirs = [file('src/main/kotlin')]
+        excludeDirs = [file('src/processed/kotlin')]
+    }
+}
+
 apply plugin: "com.igormaznitsa.jcp"
 
 preprocess {
