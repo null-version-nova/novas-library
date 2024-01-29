@@ -140,7 +140,7 @@ modrinth {
 sourceSets {
     main {
         kotlin {
-            srcDirs = ['src/processed/kotlin','src/main/kotlin']
+            srcDirs = ['src/processed/kotlin']
         }
         resources {
             srcDir file('src/main/generated')
@@ -148,17 +148,11 @@ sourceSets {
     }
 }
 
-idea {
-    module {
-        sourceDirs = [file('src/template/kotlin'),file('src/main/kotlin')]
-        excludeDirs = [file('src/processed/kotlin')]
-    }
-}
-
 apply plugin: "com.igormaznitsa.jcp"
 
 preprocess {
-    sources = [file('src/template')]
+    sources = [file('src/main')]
+    excludeFolders = ['src/main/resources', 'src/main/generated']
     allowWhitespaces = false
     fileExtensions = ['java','kt']
     keepComments = 'remove_jcp_only'

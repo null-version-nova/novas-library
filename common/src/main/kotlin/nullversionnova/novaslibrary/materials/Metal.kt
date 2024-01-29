@@ -1,23 +1,17 @@
 package nullversionnova.novaslibrary.materials
 
-import dev.architectury.event.events.client.ClientLifecycleEvent
-import dev.architectury.event.events.common.LifecycleEvent
 import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.data.recipes.RecipeProvider
-import net.minecraft.data.recipes.ShapedRecipeBuilder
-import net.minecraft.data.recipes.ShapelessRecipeBuilder
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour
 import nullversionnova.novaslibrary.datagen.GeneralDataProcessing
-import nullversionnova.novaslibrary.registry.RegistryAccessor
 import nullversionnova.novaslibrary.interfaces.Material
-import nullversionnova.novaslibrary.recipes.CraftingRecipeBuilder
 import nullversionnova.novaslibrary.registry.BlockRegistry
 import nullversionnova.novaslibrary.registry.GenericRegistry
+import nullversionnova.novaslibrary.registry.RegistryAccessor
 
 
 class Metal(val id: ResourceLocation) : Material {
@@ -26,7 +20,7 @@ class Metal(val id: ResourceLocation) : Material {
 
     val INGOT by item_registry.register("${id.path}_ingot") { Item(Item.Properties()) }
     val NUGGET by item_registry.register("${id.path}_nugget") { Item(Item.Properties()) }
-    val BLOCK by block_registry.register("${id.path}_block") { Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)) }
+    val BLOCK by block_registry.registerWithItem("${id.path}_block") { Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)) }
     var RAW_ORE : RawOre? = null
 
     fun withRawOre() : Metal {
@@ -48,8 +42,8 @@ class Metal(val id: ResourceLocation) : Material {
             RecipeProvider.oneToOneConversionRecipe(it,INGOT,BLOCK,null,9)
 
             if (RAW_ORE != null) {
-                RecipeProvider.oreSmelting(it, listOf(RAW_ORE!!.ORE),RecipeCategory.MISC,INGOT, 1.0F,200,"${id.path}_ingot_smelted_from_ore")
-                RecipeProvider.oreBlasting(it, listOf(RAW_ORE!!.ORE),RecipeCategory.MISC,INGOT, 1.0F,100,"${id.path}_ingot_blasted_from_ore")
+                RecipeProvider.oreSmelting(it, listOf(RAW_ORE!!.ORE),RecipeCategory.MISC,INGOT, 1.0F,200,"${id.path}_ingot")
+                RecipeProvider.oreBlasting(it, listOf(RAW_ORE!!.ORE),RecipeCategory.MISC,INGOT, 1.0F,100,"${id.path}_ingot")
             }
         }
     }

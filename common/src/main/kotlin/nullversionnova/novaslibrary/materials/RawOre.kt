@@ -1,13 +1,14 @@
 package nullversionnova.novaslibrary.materials
 
-import dev.architectury.event.events.common.LifecycleEvent
+import net.minecraft.data.recipes.RecipeCategory
+import net.minecraft.data.recipes.RecipeProvider
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour
+import nullversionnova.novaslibrary.datagen.GeneralDataProcessing
 import nullversionnova.novaslibrary.interfaces.Material
-import nullversionnova.novaslibrary.recipes.CraftingRecipeBuilder
 import nullversionnova.novaslibrary.registry.BlockRegistry
 import nullversionnova.novaslibrary.registry.GenericRegistry
 import nullversionnova.novaslibrary.registry.RegistryAccessor
@@ -26,9 +27,9 @@ class RawOre(val id: ResourceLocation) : Material {
         block_registry.register()
         item_registry.register()
 
-        LifecycleEvent.SETUP.register {
-            CraftingRecipeBuilder(id.namespace,"${id.path}_to_block",BLOCK).withIngredients('x' to ORE).setShape("xxx\nxxx\nxxx").build()
-            CraftingRecipeBuilder(id.namespace,"${id.path}_block_to_ore",ORE,9).withIngredients('x' to BLOCK).setList("x").build()
+        GeneralDataProcessing.registerRecipe {
+            RecipeProvider.threeByThreePacker(it, RecipeCategory.MISC,BLOCK,ORE)
+            RecipeProvider.oneToOneConversionRecipe(it,ORE,BLOCK,null,9)
         }
     }
 }

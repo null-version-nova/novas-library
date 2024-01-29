@@ -134,8 +134,7 @@ sourceSets {
 
 idea {
     module {
-        sourceDirs = [file('src/template/kotlin'),file('src/main/kotlin')]
-        excludeDirs = [file('src/processed/kotlin')]
+        sourceDirs = [file('src/main/kotlin')]
     }
 }
 
