@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_raw_unobtanium": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "novas_library:raw_unobtanium"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "novas_library:raw_unobtanium_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_raw_unobtanium",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "novas_library:raw_unobtanium_block"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "novas_library:raw_unobtanium"
+    },
+    {
+      "item": "novas_library:raw_unobtanium"
+    },
+    {
+      "item": "novas_library:raw_unobtanium"
+    },
+    {
+      "item": "novas_library:raw_unobtanium"
+    },
+    {
+      "item": "novas_library:raw_unobtanium"
+    },
+    {
+      "item": "novas_library:raw_unobtanium"
+    },
+    {
+      "item": "novas_library:raw_unobtanium"
+    },
+    {
+      "item": "novas_library:raw_unobtanium"
+    },
+    {
+      "item": "novas_library:raw_unobtanium"
+    }
+  ],
+  "result": {
+    "item": "novas_library:raw_unobtanium_block"
+  }
+}

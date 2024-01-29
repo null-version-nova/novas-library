@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "InventoryChangeTrigger": {
+      "conditions": {},
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "novas_library:raw_unobtanium_to_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "InventoryChangeTrigger",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "novas_library:raw_unobtanium_to_block"
+    ]
+  },
+  "sends_telemetry_event": false
+}
