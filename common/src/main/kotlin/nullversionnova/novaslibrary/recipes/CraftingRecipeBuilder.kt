@@ -1,16 +1,20 @@
 package nullversionnova.novaslibrary.recipes
 
-import dev.architectury.injectables.annotations.ExpectPlatform
+import net.minecraft.data.recipes.RecipeCategory
+import net.minecraft.data.recipes.RecipeProvider.inventoryTrigger
+import net.minecraft.data.recipes.ShapedRecipeBuilder
+import net.minecraft.data.recipes.ShapelessRecipeBuilder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.ItemLike
-import java.lang.AssertionError
+import nullversionnova.novaslibrary.datagen.GeneralDataProcessing
 
-class CraftingRecipeBuilder(val id: ResourceLocation, val output: () -> ItemLike, val quantity: Int = 1) {
-    constructor(namespace: String, path: String, output: () -> ItemLike, quantity: Int = 1) : this(ResourceLocation(namespace,path),output,quantity)
-    lateinit var ingredients : Map<Char,() -> ItemLike>
+class CraftingRecipeBuilder(val id: ResourceLocation, val output: ItemLike, val quantity: Int = 1) {
+    constructor(namespace: String, path: String, output: ItemLike, quantity: Int = 1) : this(ResourceLocation(namespace,path),output,quantity)
+    lateinit var ingredients : Map<Char,ItemLike>
     var has_shape : Boolean? = null
     var shape : String? = null
-    fun withIngredients(vararg input: Pair<Char,() -> ItemLike>) : CraftingRecipeBuilder {
+    var category = RecipeCategory.MISC
+    fun withIngredients(vararg input: Pair<Char,ItemLike>) : CraftingRecipeBuilder {
         ingredients = mapOf(*input)
         return this
     }
@@ -24,11 +28,36 @@ class CraftingRecipeBuilder(val id: ResourceLocation, val output: () -> ItemLike
         shape = input
         return this
     }
+    fun setCategory(input: RecipeCategory) : CraftingRecipeBuilder {
+        category = input
+        return this
+    }
     fun build() {
         when(has_shape) {
             null -> return
-            true -> ProviderSender.sendShapedRecipe(this)
-            false -> ProviderSender.sendShapelessRecipe(this)
+            true -> {
+                val recipe = ShapedRecipeBuilder(RecipeCategory.MISC,output,quantity)
+                ingredients.forEach { map -> recipe.define(map.key,map.value) }
+                shape!!.split('\n').forEach { shape ->
+                    recipe.pattern(shape)
+                }
+                recipe.unlockedBy("InventoryChangeTrigger", inventoryTrigger())
+                recipe.save {
+                    GeneralDataProcessing.registerRecipe(it)
+                }
+            }
+            false -> {
+                val recipe = ShapelessRecipeBuilder(RecipeCategory.MISC,output,quantity)
+                ingredients.keys.forEach { key ->
+                    (0 until (shape!!.count {char -> char == key })).forEach { _ ->
+                        recipe.requires(ingredients[key]!!)
+                    }
+                }
+                recipe.unlockedBy("InventoryChangeTrigger", inventoryTrigger())
+                recipe.save {
+                    GeneralDataProcessing.registerRecipe(it)
+                }
+            }
         }
     }
 }

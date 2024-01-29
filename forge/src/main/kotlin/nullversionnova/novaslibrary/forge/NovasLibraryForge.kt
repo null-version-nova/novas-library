@@ -5,10 +5,11 @@ import net.minecraftforge.data.event.GatherDataEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import nullversionnova.novaslibrary.NovasLibrary
-import nullversionnova.novaslibrary.recipes.forge.ShapedRecipeProvider
+import nullversionnova.novaslibrary.datagen.forge.RecipeProcessor
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
 @Mod(NovasLibrary.MOD_ID)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 object NovasLibraryForge {
     init {
         EventBuses.registerModEventBus(NovasLibrary.MOD_ID, MOD_BUS)
@@ -17,9 +18,10 @@ object NovasLibraryForge {
 
     @SubscribeEvent
     fun gatherData(event: GatherDataEvent) {
+        println("Gathering data...")
         event.generator.addProvider(
             event.includeServer(),
-            ShapedRecipeProvider(event.generator.packOutput)
+            RecipeProcessor(event.generator.packOutput),
         )
     }
 }

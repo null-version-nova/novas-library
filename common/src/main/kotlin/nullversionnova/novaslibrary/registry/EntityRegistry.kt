@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder
 import net.minecraft.world.level.Level
-import nullversionnova.novaslibrary.abstraction.RegistryAccessor
+import nullversionnova.novaslibrary.registry.RegistryAccessor
 import nullversionnova.novaslibrary.util.RegistryDelegate
 
 open class EntityRegistry(id: String) : GenericRegistry<EntityType<*>>(id, RegistryAccessor.ENTITY_TYPE) {

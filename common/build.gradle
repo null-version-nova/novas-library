@@ -47,14 +47,14 @@ kotlin {
 sourceSets {
     main {
         kotlin {
-            srcDirs = ['src/processed/kotlin']
+            srcDirs = ['src/processed/kotlin','src/main/kotlin']
         }
     }
 }
 
 idea {
     module {
-        sourceDirs = [file('src/main/kotlin')]
+        sourceDirs = [file('src/template/kotlin'),file('src/main/kotlin')]
         excludeDirs = [file('src/processed/kotlin')]
     }
 }
@@ -62,7 +62,7 @@ idea {
 apply plugin: "com.igormaznitsa.jcp"
 
 preprocess {
-    sources = [file('src/main')]
+    sources = [file('src/template')]
     allowWhitespaces = false
     keepComments = 'remove_jcp_only'
     fileExtensions = ['java','kt']

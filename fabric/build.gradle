@@ -10,6 +10,19 @@ architectury {
 
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
+
+    runs {
+        // This adds a new gradle task that runs the datagen API: "gradlew runDatagen"
+        datagen {
+            inherit server
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.modid=${mod_id}"
+
+            runDir "build/datagen"
+        }
+    }
 }
 
 configurations {
@@ -29,6 +42,8 @@ dependencies {
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    modImplementation "net.fabricmc:fabric-language-kotlin:${rootProject.fabric_kotlin_version}"
 }
 
 processResources {
@@ -109,14 +124,17 @@ kotlin {
 sourceSets {
     main {
         kotlin {
-            srcDirs = ['src/processed/kotlin']
+            srcDirs = ['src/processed/kotlin','src/main/kotlin']
+        }
+        resources {
+            srcDir file('src/main/generated')
         }
     }
 }
 
 idea {
     module {
-        sourceDirs = [file('src/main/kotlin')]
+        sourceDirs = [file('src/template/kotlin'),file('src/main/kotlin')]
         excludeDirs = [file('src/processed/kotlin')]
     }
 }
@@ -124,14 +142,14 @@ idea {
 apply plugin: "com.igormaznitsa.jcp"
 
 preprocess {
-    sources = [file('src/main/kotlin')]
+    sources = [file('src/template')]
     allowWhitespaces = false
     fileExtensions = ['java','kt']
     keepComments = 'remove_jcp_only'
     keepLines = false
     verbose = true
     vars = ['MC': rootProject.mcVersion]
-    target = file('src/processed/kotlin')
+    target = file('src/processed')
     print(outcomingFiles.getAsFileTree())
     outputs.upToDateWhen { false }
 }

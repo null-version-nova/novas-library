@@ -1,4 +1,4 @@
-package nullversionnova.novaslibrary.abstraction
+package nullversionnova.novaslibrary.registry
 
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey

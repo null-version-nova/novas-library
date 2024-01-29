@@ -22,22 +22,8 @@ architectury {
 
 def generated_resources = file("src/main/generated")
 
-sourceSets {
-    main {
-        kotlin {
-            srcDirs = ['src/processed/kotlin']
-        }
-        resources {
-            srcDir generated_resources
-        }
-    }
-}
-
-idea {
-    module {
-        sourceDirs = [file('src/main/kotlin')]
-        excludeDirs = [file('src/processed/kotlin')]
-    }
+clean {
+    delete(file('src/processed'))
 }
 
 loom {
@@ -151,18 +137,35 @@ modrinth {
 }
 
 
+sourceSets {
+    main {
+        kotlin {
+            srcDirs = ['src/processed/kotlin','src/main/kotlin']
+        }
+        resources {
+            srcDir file('src/main/generated')
+        }
+    }
+}
+
+idea {
+    module {
+        sourceDirs = [file('src/template/kotlin'),file('src/main/kotlin')]
+        excludeDirs = [file('src/processed/kotlin')]
+    }
+}
 
 apply plugin: "com.igormaznitsa.jcp"
 
 preprocess {
-    sources = [file('src/main/kotlin')]
+    sources = [file('src/template')]
     allowWhitespaces = false
     fileExtensions = ['java','kt']
     keepComments = 'remove_jcp_only'
     keepLines = false
     verbose = true
     vars = ['MC': rootProject.mcVersion]
-    target = file('src/processed/kotlin')
+    target = file('src/processed')
     print(outcomingFiles.getAsFileTree())
     outputs.upToDateWhen { false }
 }
