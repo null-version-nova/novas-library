@@ -16,6 +16,7 @@ plugins {
     // OPTIONAL Kotlin Serialization plugin
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.21'
     id 'idea'
+    id "com.modrinth.minotaur" version "2.+" apply false
 }
 
 architectury {
@@ -24,6 +25,7 @@ architectury {
 
 subprojects {
     apply plugin: "dev.architectury.loom"
+    apply plugin: "com.modrinth.minotaur"
 
     loom {
         silentMojangMappingsLicense()
@@ -50,9 +52,7 @@ allprojects {
     apply plugin: "architectury-plugin"
     apply plugin: "maven-publish"
 
-    base {
-        archivesName = rootProject.archives_base_name
-    }
+
 
     version = rootProject.mod_version
     group = rootProject.maven_group

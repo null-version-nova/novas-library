@@ -72,11 +72,14 @@ components.java {
     }
 }
 
+base {
+    archivesName = rootProject.archives_base_name + "-" + project.name + "-" + minecraft_version
+}
+
 publishing {
     publications {
         mavenFabric(MavenPublication) {
             artifactId = rootProject.archives_base_name + "-" + project.name + "-" + minecraft_version
-            print(artifactId)
             from components.java
         }
     }
@@ -86,6 +89,16 @@ publishing {
         // Add repositories to publish to here.
     }
 }
+
+modrinth {
+    projectId = "novas-library"
+    versionName = "Fabric ${minecraft_version} ${version}"
+    uploadFile = remapJar
+    gameVersions = [ minecraft_version ]
+    loaders = [ project.name ]
+    autoAddDependsOn = true
+}
+
 repositories {
     mavenCentral()
 }

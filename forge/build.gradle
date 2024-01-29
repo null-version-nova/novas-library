@@ -20,6 +20,26 @@ architectury {
     forge()
 }
 
+def generated_resources = file("src/main/generated")
+
+sourceSets {
+    main {
+        kotlin {
+            srcDirs = ['src/processed/kotlin']
+        }
+        resources {
+            srcDir generated_resources
+        }
+    }
+}
+
+idea {
+    module {
+        sourceDirs = [file('src/main/kotlin')]
+        excludeDirs = [file('src/processed/kotlin')]
+    }
+}
+
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
 
@@ -29,6 +49,14 @@ loom {
 
         mixinConfig "novas_library-common.mixins.json"
         mixinConfig "novas_library.mixins.json"
+    }
+
+    runs {
+        data {
+            data()
+            programArgs "--all", "--mod", mod_id
+            programArgs "--output", generated_resources.absolutePath
+        }
     }
 }
 
@@ -49,6 +77,8 @@ dependencies {
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 }
+
+
 
 processResources {
     def replaceProperties= [
@@ -93,6 +123,10 @@ components.java {
     }
 }
 
+base {
+    archivesName = rootProject.archives_base_name + "-" + project.name + "-" + minecraft_version
+}
+
 publishing {
     publications {
         mavenForge(MavenPublication) {
@@ -107,21 +141,16 @@ publishing {
     }
 }
 
-
-sourceSets {
-    main {
-        kotlin {
-            srcDirs = ['src/processed/kotlin']
-        }
-    }
+modrinth {
+    projectId = "novas-library"
+    versionName = "Forge ${minecraft_version} ${version}"
+    uploadFile = remapJar
+    gameVersions = [ minecraft_version ]
+    loaders = [ project.name ]
+    autoAddDependsOn = true
 }
 
-idea {
-    module {
-        sourceDirs = [file('src/main/kotlin')]
-        excludeDirs = [file('src/processed/kotlin')]
-    }
-}
+
 
 apply plugin: "com.igormaznitsa.jcp"
 

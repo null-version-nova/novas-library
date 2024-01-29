@@ -13,3 +13,4 @@ classes/
 
 **/.*
 /*/src/processed/
+/*/src/main/generated/

@@ -21,7 +21,7 @@ open class GenericRegistry<T>(id: String,key : ResourceKey<Registry<T>>) : Regis
         beginRegister()
         finishRegister()
     }
-    override fun <U : T> register(path : String, constructor : ()->U) : RegistryDelegate<U> {
+    fun <U : T> register(path : String, constructor : ()->U) : RegistryDelegate<U> {
         return RegistryDelegate(registry.register(path) { constructor() })
     }
     override fun whenRegistered(callback : () -> Unit) {
