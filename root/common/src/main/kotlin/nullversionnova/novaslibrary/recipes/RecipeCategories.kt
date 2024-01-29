@@ -1,6 +1,16 @@
 package nullversionnova.novaslibrary.recipes
 
+//#if MC>=11903
 import net.minecraft.data.recipes.RecipeCategory
+//#else
+//$import net.minecraft.client.RecipeBookCategories
+//#endif
+
+//#if MC>=11903
+typealias RecipeCategory = RecipeCategory
+//#else
+//$typealias RecipeCategory = RecipeBookCategories
+//#endif
 
 object RecipeCategories {
     val MISC =
@@ -10,3 +20,4 @@ object RecipeCategories {
         //$RecipeBookCategories.CRAFTING_MISC
         //#endif
 }
+

@@ -1,3 +1,5 @@
+import com.replaymod.gradle.preprocess.PreprocessTask
+
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.8.21'
 }
@@ -7,10 +9,12 @@ architectury {
 }
 
 loom {
-    if (parent.name == "root") {
+    if (file("src/main/resources/novas_library.accesswidener").exists()) {
         accessWidenerPath = file("src/main/resources/novas_library.accesswidener")
-    } else {
+    } else if (file("build/merged/resources/novas_library.accesswidener").exists()) {
         accessWidenerPath = file("build/merged/resources/novas_library.accesswidener")
+    } else {
+        accessWidenerPath = file("../../../root/common/src/main/resources/novas_library.accesswidener")
     }
 }
 
@@ -48,59 +52,91 @@ kotlin {
     jvmToolchain(17)
 }
 
+//apply plugin: 'com.replaymod.preprocess'
+//
+//preprocess {
+//    vars.put("MC", project.mcVersion)
+//    vars.put("FABRIC", project.fabric ? 1 : 0)
+//
+//    keywords.set([
+//            ".java": PreprocessTask.DEFAULT_KEYWORDS,
+//            ".json": PreprocessTask.DEFAULT_KEYWORDS,
+//            ".mcmeta": PreprocessTask.DEFAULT_KEYWORDS,
+//            ".cfg": PreprocessTask.CFG_KEYWORDS,
+//            ".vert": PreprocessTask.DEFAULT_KEYWORDS,
+//            ".frag": PreprocessTask.DEFAULT_KEYWORDS,
+//    ])
+//
+//    patternAnnotation.set("com.replaymod.gradle.remap.Pattern")
+//}
 
 
-apply plugin: "com.igormaznitsa.jcp"
-
-tasks.register("merge") {
-    copy {
-        from('build/processed')
-        into('build/merged')
-    }
-    copy {
-        from('src/main')
-        into('build/merged')
-    }
-}
-
-if (parent.name == "root") {
-    sourceSets {
-        main {
-            kotlin {
-                srcDirs = ['src/main/kotlin']
-            }
-            resources {
-                srcDirs = ['src/main/resources','src/main/generated']
-            }
-        }
-    }
-} else {
-    preprocess {
-        sources = [file("../../root/${project.name}/src/main")]
-        allowWhitespaces = false
-        keepComments = 'remove_jcp_only'
-        fileExtensions = ['java','kt']
-        keepLines = false
-        verbose = true
-        vars = ['MC': parent.mcVersion]
-        target = file('build/processed')
-        print(outcomingFiles.getAsFileTree())
-        outputs.upToDateWhen { false }
-    }
-
-    compileKotlin.dependsOn(merge)
-    compileJava.dependsOn(merge)
-
-    sourceSets {
-        main {
-            kotlin {
-                srcDirs = ['build/merged/kotlin']
-            }
-            resources {
-                srcDirs = ['build/merged/resources','build/merged/generated']
-            }
-        }
-    }
-}
+//apply plugin: "com.igormaznitsa.jcp"
+//
+//tasks.register("merge") {
+//    copy {
+//        from('build/processed')
+//        into('build/merged')
+//    }
+//    copy {
+//        from('src/main')
+//        into('build/merged')
+//    }
+//    inputs.files(fileTree('build/processed'),fileTree('src/main'))
+//    outputs.files(fileTree('build/merged'))
+//    dependsOn(preprocess)
+//}
+//
+//if (parent.name == "root") {
+//    sourceSets {
+//        main {
+//            kotlin {
+//                srcDirs = ['src/main/kotlin']
+//            }
+//            resources {
+//                srcDirs = ['src/main/resources','src/main/generated']
+//            }
+//        }
+//    }
+//} else {
+//    preprocess {
+//        sources = [file("../../root/${project.name}/src/main")]
+//        allowWhitespaces = false
+//        keepComments = 'remove_jcp_only'
+//        fileExtensions = ['java','kt']
+//        keepLines = false
+//        verbose = true
+//        vars = ['MC': parent.mcVersion]
+//        target = file('build/processed')
+//        print(outcomingFiles.getAsFileTree())
+//        outputs.upToDateWhen { false }
+//        outputs.files(fileTree('build/processed'))
+//        inputs.files(fileTree("../../root/${project.name}/src/main"))
+//    }
+//
+//    compileKotlin.dependsOn(merge)
+//    compileJava.dependsOn(merge)
+//    transformProductionFabric.dependsOn(merge)
+//    processResources.dependsOn(merge)
+//    sourcesJar.dependsOn(merge)
+//
+//    sourceSets {
+//        main {
+//            kotlin {
+//                srcDirs = ['build/merged/kotlin']
+//            }
+//            resources {
+//                srcDirs = ['build/merged/resources','build/merged/generated']
+//            }
+//        }
+//    }
+//    idea.module {
+//        generatedSourceDirs += file('build/merged/kotlin')
+//        generatedSourceDirs += file('build/merged/java')
+//
+//        resourceDirs += file('build/merged/resources')
+//        resourceDirs += file('build/merged/generated')
+//    }
+//}
 
 

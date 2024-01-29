@@ -1,0 +1,6 @@
+accessWidener   v2  named
+accessible method net/minecraft/data/recipes/RecipeProvider inventoryTrigger ([Lnet/minecraft/advancements/critereon/ItemPredicate;)Lnet/minecraft/advancements/critereon/InventoryChangeTrigger$TriggerInstance;
+accessible method net/minecraft/data/recipes/RecipeProvider oneToOneConversionRecipe (Ljava/util/function/Consumer;Lnet/minecraft/world/level/ItemLike;Lnet/minecraft/world/level/ItemLike;Ljava/lang/String;)V
+accessible method net/minecraft/data/recipes/RecipeProvider oneToOneConversionRecipe (Ljava/util/function/Consumer;Lnet/minecraft/world/level/ItemLike;Lnet/minecraft/world/level/ItemLike;Ljava/lang/String;I)V
+accessible method net/minecraft/data/recipes/RecipeProvider oreSmelting (Ljava/util/function/Consumer;Ljava/util/List;Lnet/minecraft/world/level/ItemLike;FILjava/lang/String;)V
+accessible method net/minecraft/data/recipes/RecipeProvider oreBlasting (Ljava/util/function/Consumer;Ljava/util/List;Lnet/minecraft/world/level/ItemLike;FILjava/lang/String;)V

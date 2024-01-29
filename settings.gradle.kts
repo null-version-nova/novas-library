@@ -3,7 +3,17 @@ pluginManagement {
         maven("https://maven.fabricmc.net/")
         maven("https://maven.architectury.dev/")
         maven("https://maven.minecraftforge.net/")
+        maven("https://jitpack.io")
         gradlePluginPortal()
+    }
+    resolutionStrategy {
+        eachPlugin {
+            when (requested.id.id) {
+                "com.replaymod.preprocess" -> {
+                    useModule("com.github.replaymod:preprocessor:${requested.version}")
+                }
+            }
+        }
     }
 }
 
@@ -16,28 +26,29 @@ include("root:fabric")
 include("root:forge")
 
 rootProject.name = "novaslibrary"
-rootProject.buildFileName = "root.gradle"
+rootProject.buildFileName = "root.gradle.kts"
 
 val versions = listOf(
     "1.18.2",
     "1.20.1"
 )
 
-versions.forEach {
-    include(it)
-    project(":$it").apply {
-        buildFileName = "../build.gradle"
+versions.forEach { version ->
+    include(version)
+    project(":$version").apply {
+        buildFileName = "../../build.gradle"
+        projectDir = file("versions/$version")
     }
-    include("$it:common")
-    project(":$it:common").apply {
-        buildFileName = "../../root/common/build.gradle"
+    include(":$version:common")
+    project(":$version:common").apply {
+        buildFileName = "../../../root/common/build.gradle"
     }
-    include("$it:fabric")
-    project(":$it:fabric").apply {
-        buildFileName = "../../root/fabric/build.gradle"
+    include(":$version:fabric")
+    project(":$version:fabric").apply {
+        buildFileName = "../../../root/fabric/build.gradle"
     }
-    include("$it:forge")
-    project(":$it:forge").apply {
-        buildFileName = "../../root/forge/build.gradle"
+    include(":$version:forge")
+    project(":$version:forge").apply {
+        buildFileName = "../../../root/forge/build.gradle"
     }
 }

@@ -8,6 +8,10 @@ architectury {
     fabric()
 }
 
+if (parent.name == "root") {
+    def fabric_api_version = parent.fabric_api_version
+}
+
 loom {
     try {
         accessWidenerPath = project(":${parent.name}:common").loom.accessWidenerPath
@@ -162,8 +166,7 @@ if (parent.name == "root") {
         outputs.upToDateWhen { false }
     }
 
-    compileKotlin.dependsOn(merge)
-    compileJava.dependsOn(merge)
+    tasks.build.dependsOn(merge,common:merge)
 
     sourceSets {
         main {

@@ -1,6 +1,5 @@
 package nullversionnova.novaslibrary.materials
 
-import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.data.recipes.RecipeProvider
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
@@ -9,6 +8,7 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour
 import nullversionnova.novaslibrary.datagen.GeneralDataProcessing
 import nullversionnova.novaslibrary.interfaces.Material
+import nullversionnova.novaslibrary.recipes.ShapedRecipeAssembler
 import nullversionnova.novaslibrary.registry.BlockRegistry
 import nullversionnova.novaslibrary.registry.GenericRegistry
 import nullversionnova.novaslibrary.registry.RegistryAccessor
@@ -28,7 +28,7 @@ class RawOre(val id: ResourceLocation) : Material {
         item_registry.register()
 
         GeneralDataProcessing.registerRecipe {
-            RecipeProvider.threeByThreePacker(it, RecipeCategory.MISC,BLOCK,ORE)
+            ShapedRecipeAssembler(id.namespace,"${id.path}_to_${id.path}_block",BLOCK)
             RecipeProvider.oneToOneConversionRecipe(it,ORE,BLOCK,null,9)
         }
     }
