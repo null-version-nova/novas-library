@@ -36,19 +36,18 @@ val versions = listOf(
 versions.forEach { version ->
     include(version)
     project(":$version").apply {
-        buildFileName = "../../build.gradle"
-        projectDir = file("versions/$version")
+        buildFileName = "../build.gradle"
     }
     include(":$version:common")
     project(":$version:common").apply {
-        buildFileName = "../../../root/common/build.gradle"
+        buildFileName = "../../root/common/build.gradle"
     }
     include(":$version:fabric")
     project(":$version:fabric").apply {
-        buildFileName = "../../../root/fabric/build.gradle"
+        buildFileName = "../../root/fabric/build.gradle"
     }
     include(":$version:forge")
     project(":$version:forge").apply {
-        buildFileName = "../../../root/forge/build.gradle"
+        buildFileName = "../../root/forge/build.gradle"
     }
 }

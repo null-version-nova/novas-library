@@ -1,3 +1,4 @@
+
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
     // Adds the Kotlin Gradle plugin
@@ -14,38 +15,7 @@ repositories {
     }
 }
 
-architectury {
-    platformSetupLoomIde()
-    forge()
-}
 
-def generated_resources = file("src/main/generated")
-
-clean {
-    delete(file('src/processed'))
-}
-
-loom {
-    try {
-        accessWidenerPath = project(":${parent.name}:common").loom.accessWidenerPath
-    } catch(ignored) {}
-
-    forge {
-        convertAccessWideners = true
-        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
-
-        mixinConfig "novas_library-common.mixins.json"
-        mixinConfig "novas_library.mixins.json"
-    }
-
-    runs {
-        data {
-            data()
-            programArgs "--all", "--mod", mod_id
-            programArgs "--output", generated_resources.absolutePath
-        }
-    }
-}
 
 configurations {
     common
@@ -163,6 +133,32 @@ if (parent.name == "root") {
         }
     }
 } else {
+    architectury {
+        platformSetupLoomIde()
+        forge()
+    }
+
+    def generated_resources = file("src/main/generated")
+
+    loom {
+        accessWidenerPath = project(":${parent.name}:common").loom.accessWidenerPath
+
+        forge {
+            convertAccessWideners = true
+            extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+
+            mixinConfig "novas_library-common.mixins.json"
+            mixinConfig "novas_library.mixins.json"
+        }
+
+        runs {
+            data {
+                data()
+                programArgs "--all", "--mod", mod_id
+                programArgs "--output", generated_resources.absolutePath
+            }
+        }
+    }
     preprocess {
         sources = [file("../../root/${project.name}/src/main")]
         allowWhitespaces = false

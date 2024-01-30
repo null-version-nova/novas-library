@@ -1,18 +1,19 @@
-import com.replaymod.gradle.preprocess.PreprocessTask
-
 if (project.name != "root") {
     project.ext.minecraft_version = project.name
+    architectury {
+        minecraft = minecraft_version
+    }
 } else {
     project.ext.minecraft_version = primary_minecraft_version
 }
 
-architectury {
-    minecraft = minecraft_version
-}
+
 
 subprojects {
-    apply plugin: "dev.architectury.loom"
-    apply plugin: "com.modrinth.minotaur"
+    if (project.name != "root") {
+        apply plugin: "dev.architectury.loom"
+        apply plugin: "com.modrinth.minotaur"
+    }
 
     loom {
         silentMojangMappingsLicense()
@@ -36,10 +37,10 @@ allprojects {
     project.ext.mcVersion=mcVersion
 
     apply plugin: "java"
-    apply plugin: "architectury-plugin"
+    if (project.name != "root") {
+        apply plugin: "architectury-plugin"
+    }
     apply plugin: "maven-publish"
-
-
 
     version = rootProject.mod_version
     group = rootProject.maven_group
@@ -61,8 +62,6 @@ allprojects {
         withSourcesJar()
     }
 }
-
-apply plugin: 'com.replaymod.preprocess'
 
 def architectury_version = [
         11802: "4.11.93",

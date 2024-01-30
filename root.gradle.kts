@@ -18,11 +18,3 @@ plugins {
     id("idea")
     id("com.modrinth.minotaur") version "2.+" apply false
 }
-
-preprocess {
-    val mc12001 = createNode("1.20.1", 12001, "mojmap")
-    val mc11802 = createNode("1.18.2", 11802, "mojmap")
-
-    mc12001.link(mc11802,file("versions/1.20.1/mapping.txt"))
-//    mc11802.link(mc12001,file("versions/1.18.2/mappings.txt"))
-}
