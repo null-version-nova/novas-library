@@ -136,7 +136,7 @@ tasks.register("merge") {
         into('build/merged')
     }
     copy {
-        from('src/main')
+        from('src')
         into('build/merged')
     }
 }.get().dependsOn(preprocess)
@@ -154,7 +154,7 @@ if (parent.name == "root") {
     }
 } else {
     preprocess {
-        sources = [file("../../root/${project.name}/src/main")]
+        sources = [file("../../root/${project.name}/src")]
         allowWhitespaces = false
         keepComments = 'remove_jcp_only'
         fileExtensions = ['java','kt']
@@ -171,10 +171,10 @@ if (parent.name == "root") {
     sourceSets {
         main {
             kotlin {
-                srcDirs = ['build/merged/kotlin']
+                srcDirs = ['build/merged/main/kotlin', 'build/merged/main/java']
             }
             resources {
-                srcDirs = ['build/merged/resources','build/merged/generated']
+                srcDirs = ['build/merged/main/resources','build/merged/main/generated']
             }
         }
     }

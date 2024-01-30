@@ -1,6 +1,5 @@
 package nullversionnova.novaslibrary.materials
 
-import net.minecraft.data.recipes.RecipeProvider
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
@@ -8,7 +7,9 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour
 import nullversionnova.novaslibrary.datagen.GeneralDataProcessing
 import nullversionnova.novaslibrary.interfaces.Material
+import nullversionnova.novaslibrary.recipes.RecipeCategories
 import nullversionnova.novaslibrary.recipes.ShapedRecipeAssembler
+import nullversionnova.novaslibrary.recipes.ShapelessRecipeAssembler
 import nullversionnova.novaslibrary.registry.BlockRegistry
 import nullversionnova.novaslibrary.registry.GenericRegistry
 import nullversionnova.novaslibrary.registry.RegistryAccessor
@@ -28,8 +29,13 @@ class RawOre(val id: ResourceLocation) : Material {
         item_registry.register()
 
         GeneralDataProcessing.registerRecipe {
-            ShapedRecipeAssembler(id.namespace,"${id.path}_to_${id.path}_block",BLOCK)
-            RecipeProvider.oneToOneConversionRecipe(it,ORE,BLOCK,null,9)
+            ShapedRecipeAssembler(RecipeCategories.BUILDING_BLOCKS,id.namespace,"${id.path}_to_${id.path}_block",BLOCK)
+                .withIngredients( 'x' to ORE )
+                .setShape("xxx\nxxx\nxxx")
+                .send(it)
+            ShapelessRecipeAssembler(RecipeCategories.MISC,ResourceLocation(id.namespace,"${id.path}_block_to_${id.path}"),ORE,9)
+                .requires(BLOCK)
+                .send(it)
         }
     }
 }

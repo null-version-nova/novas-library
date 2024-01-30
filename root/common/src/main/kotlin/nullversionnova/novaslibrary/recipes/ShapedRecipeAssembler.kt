@@ -24,7 +24,7 @@ class ShapedRecipeAssembler(val category: RecipeCategory,val id: ResourceLocatio
     }
     fun send(closure: Consumer<FinishedRecipe>) {
         //#if MC>=11903
-        val recipe = ShapedRecipeBuilder(RecipeCategories.MISC,output,quantity)
+        val recipe = ShapedRecipeBuilder(category,output,quantity)
         //#else
         //$val recipe = ShapedRecipeBuilder(output,quantity)
         //#endif

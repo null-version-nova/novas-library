@@ -3,6 +3,20 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.8.21'
 }
 
+architectury {
+    common(rootProject.enabled_platforms.split(","))
+}
+
+loom {
+    if (file("src/main/resources/novas_library.accesswidener").exists()) {
+        accessWidenerPath = file("src/main/resources/novas_library.accesswidener")
+    } else if (file("build/merged/resources/novas_library.accesswidener").exists()) {
+        accessWidenerPath = file("build/merged/resources/novas_library.accesswidener")
+    } else {
+        accessWidenerPath = file("../../root/common/src/main/resources/novas_library.accesswidener")
+    }
+}
+
 dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
     // Do NOT use other classes from fabric loader
@@ -45,10 +59,10 @@ tasks.register("merge") {
         into('build/merged')
     }
     copy {
-        from('src/main')
+        from('src')
         into('build/merged')
     }
-    inputs.files(fileTree('build/processed'),fileTree('src/main'))
+    inputs.files(fileTree('build/processed'),fileTree('src'))
     outputs.files(fileTree('build/merged'))
     dependsOn(preprocess)
 }
@@ -65,22 +79,8 @@ if (parent.name == "root") {
         }
     }
 } else {
-    architectury {
-        common(rootProject.enabled_platforms.split(","))
-    }
-
-    loom {
-        if (file("src/main/resources/novas_library.accesswidener").exists()) {
-            accessWidenerPath = file("src/main/resources/novas_library.accesswidener")
-        } else if (file("build/merged/resources/novas_library.accesswidener").exists()) {
-            accessWidenerPath = file("build/merged/resources/novas_library.accesswidener")
-        } else {
-            accessWidenerPath = file("../../root/common/src/main/resources/novas_library.accesswidener")
-        }
-    }
-
     preprocess {
-        sources = [file("../../root/${project.name}/src/main")]
+        sources = [file("../../root/${project.name}/src")]
         allowWhitespaces = false
         keepComments = 'remove_jcp_only'
         fileExtensions = ['java','kt']
@@ -88,10 +88,9 @@ if (parent.name == "root") {
         verbose = true
         vars = ['MC': parent.mcVersion]
         target = file('build/processed')
-        print(outcomingFiles.getAsFileTree())
         outputs.upToDateWhen { false }
         outputs.files(fileTree('build/processed'))
-        inputs.files(fileTree("../../root/${project.name}/src/main"))
+        inputs.files(fileTree("../../root/${project.name}/src"))
     }
 
     compileKotlin.dependsOn(merge)
@@ -103,19 +102,12 @@ if (parent.name == "root") {
     sourceSets {
         main {
             kotlin {
-                srcDirs = ['build/merged/kotlin']
+                srcDirs = ['build/merged/main/kotlin', 'build/merged/main/java']
             }
             resources {
-                srcDirs = ['build/merged/resources','build/merged/generated']
+                srcDirs = ['build/merged/main/resources','build/merged/main/generated']
             }
         }
-    }
-    idea.module {
-        generatedSourceDirs += file('build/merged/kotlin')
-        generatedSourceDirs += file('build/merged/java')
-
-        resourceDirs += file('build/merged/resources')
-        resourceDirs += file('build/merged/generated')
     }
 }
 

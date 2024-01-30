@@ -19,5 +19,11 @@ object RecipeCategories {
         //#else
         //$RecipeBookCategories.CRAFTING_MISC
         //#endif
+    val BUILDING_BLOCKS =
+        //#if MC>=11903
+        RecipeCategory.BUILDING_BLOCKS
+        //#else
+        //$RecipeBookCategories.CRAFTING_BUILDING_BLOCKS
+        //#endif
 }
 

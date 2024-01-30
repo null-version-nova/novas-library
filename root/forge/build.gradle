@@ -15,7 +15,32 @@ repositories {
     }
 }
 
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
 
+def generated_resources = file("src/main/generated")
+
+loom {
+    accessWidenerPath = project(":${parent.name}:common").loom.accessWidenerPath
+
+    forge {
+        convertAccessWideners = true
+        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+
+        mixinConfig "novas_library-common.mixins.json"
+        mixinConfig "novas_library.mixins.json"
+    }
+
+    runs {
+        data {
+            data()
+            programArgs "--all", "--mod", mod_id
+            programArgs "--output", generated_resources.absolutePath
+        }
+    }
+}
 
 configurations {
     common
@@ -116,10 +141,13 @@ tasks.register("merge") {
         into('build/merged')
     }
     copy {
-        from('src/main')
+        from('src')
         into('build/merged')
     }
-}.get().dependsOn(preprocess)
+    inputs.files(fileTree('build/processed'),fileTree('src'))
+    outputs.files(fileTree('build/merged'))
+    dependsOn(preprocess)
+}
 
 if (parent.name == "root") {
     sourceSets {
@@ -133,34 +161,8 @@ if (parent.name == "root") {
         }
     }
 } else {
-    architectury {
-        platformSetupLoomIde()
-        forge()
-    }
-
-    def generated_resources = file("src/main/generated")
-
-    loom {
-        accessWidenerPath = project(":${parent.name}:common").loom.accessWidenerPath
-
-        forge {
-            convertAccessWideners = true
-            extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
-
-            mixinConfig "novas_library-common.mixins.json"
-            mixinConfig "novas_library.mixins.json"
-        }
-
-        runs {
-            data {
-                data()
-                programArgs "--all", "--mod", mod_id
-                programArgs "--output", generated_resources.absolutePath
-            }
-        }
-    }
     preprocess {
-        sources = [file("../../root/${project.name}/src/main")]
+        sources = [file("../../root/${project.name}/src")]
         allowWhitespaces = false
         keepComments = 'remove_jcp_only'
         fileExtensions = ['java','kt']
@@ -174,14 +176,16 @@ if (parent.name == "root") {
 
     compileKotlin.dependsOn(merge)
     compileJava.dependsOn(merge)
+    processResources.dependsOn(merge)
+    sourcesJar.dependsOn(merge)
 
     sourceSets {
         main {
             kotlin {
-                srcDirs = ['build/merged/kotlin']
+                srcDirs = ['build/merged/main/kotlin', 'build/merged/main/java']
             }
             resources {
-                srcDirs = ['build/merged/resources','build/merged/generated']
+                srcDirs = ['build/merged/main/resources','build/merged/main/generated']
             }
         }
     }

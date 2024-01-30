@@ -10,6 +10,7 @@ import nullversionnova.novaslibrary.datagen.GeneralDataProcessing
 import nullversionnova.novaslibrary.interfaces.Material
 import nullversionnova.novaslibrary.recipes.RecipeCategories
 import nullversionnova.novaslibrary.recipes.ShapedRecipeAssembler
+import nullversionnova.novaslibrary.recipes.ShapelessRecipeAssembler
 import nullversionnova.novaslibrary.registry.BlockRegistry
 import nullversionnova.novaslibrary.registry.GenericRegistry
 import nullversionnova.novaslibrary.registry.RegistryAccessor
@@ -45,8 +46,13 @@ class Metal(val id: ResourceLocation) : Material {
                 .setShape("xxx\nxxxx\nxxx")
                 .send(it)
 
-            RecipeProvider.oneToOneConversionRecipe(it,NUGGET,INGOT,null,9)
-            RecipeProvider.oneToOneConversionRecipe(it,INGOT,BLOCK,null,9)
+            ShapelessRecipeAssembler(RecipeCategories.MISC,ResourceLocation(id.namespace,"${id.path}_ingot_to_nugget"),NUGGET,9)
+                .requires(INGOT)
+                .send(it)
+
+            ShapelessRecipeAssembler(RecipeCategories.MISC,ResourceLocation(id.namespace,"${id.path}_block_to_ingot"),INGOT,9)
+                .requires(BLOCK)
+                .send(it)
 
             if (RAW_ORE != null) {
                 //#if MC>=11903
