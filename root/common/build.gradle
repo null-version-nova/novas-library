@@ -65,6 +65,9 @@ tasks.register("merge") {
             file("build/merged/${file('src').relativePath(it)}").delete()
         }
     }
+    doFirst {
+        file('build/merged').delete()
+    }
     outputs.upToDateWhen { false }
     dependsOn(preprocess)
 }

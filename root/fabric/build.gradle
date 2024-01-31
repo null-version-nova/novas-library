@@ -179,6 +179,7 @@ if (parent.name == "root") {
     processResources.dependsOn(merge)
     sourcesJar.dependsOn(merge)
     runDatagen.dependsOn(merge,parent.childProjects["common"].merge)
+    runClient.dependsOn(merge,parent.childProjects["common"].merge)
 
     sourceSets {
         main {

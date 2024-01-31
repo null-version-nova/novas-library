@@ -18,3 +18,8 @@ plugins {
     id("idea")
     id("com.modrinth.minotaur") version "2.+" apply false
 }
+
+val versionRelationships = mapOf(
+    "1.20.1" to "root",
+    "1.18.2" to "1.20.1"
+)

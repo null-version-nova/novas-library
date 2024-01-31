@@ -17,7 +17,7 @@ class ShapelessRecipeAssembler(val category: RecipeCategory, val id: ResourceLoc
 //#else
 //$class ShapelessRecipeAssembler(val id: ResourceLocation, val output: ItemLike, val quantity: Int = 1) {
 //#endif
-    val ingredients = mutableListOf<Ingredient>()
+    private val ingredients = mutableListOf<Ingredient>()
     fun requires(vararg ingredient: Ingredient) : ShapelessRecipeAssembler {
         ingredients.addAll(ingredient)
         return this

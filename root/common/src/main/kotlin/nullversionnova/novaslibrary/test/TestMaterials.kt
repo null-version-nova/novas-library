@@ -7,5 +7,5 @@ import nullversionnova.novaslibrary.materials.RawOre
 import nullversionnova.novaslibrary.registry.MaterialRegistry
 
 object TestMaterials : MaterialRegistry() {
-    val UNOBTAINUM = registerMaterial { Metal(ResourceLocation(NovasLibrary.MOD_ID,"unobtanium")).withRawOre() }
+    val UNOBTAINUM = registerMaterial { Metal(NovasLibrary.makeId("unobtanium")).withRawOre() }
 }

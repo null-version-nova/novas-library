@@ -15,10 +15,12 @@ import nullversionnova.novaslibrary.registry.GenericRegistry
 import nullversionnova.novaslibrary.registry.Registries
 //#if MC >= 11903
 import net.minecraft.data.recipes.RecipeCategory
+import nullversionnova.novaslibrary.test.TestTabs
+
 //#endif
 
 class Metal(val id: ResourceLocation) : Material {
-    private val blockRegistry = BlockRegistry(id.namespace)
+    private val blockRegistry = BlockRegistry(id.namespace) { TestTabs.TEST_TAB }
     private val itemRegistry = GenericRegistry(id.namespace, Registries.ITEM)
 
     val INGOT by itemRegistry.register("${id.path}_ingot") { Item(Item.Properties()) }
