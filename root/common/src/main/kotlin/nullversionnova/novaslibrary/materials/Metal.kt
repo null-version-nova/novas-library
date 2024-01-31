@@ -10,7 +10,6 @@ import nullversionnova.novaslibrary.datagen.GeneralDataProcessing
 import nullversionnova.novaslibrary.interfaces.Material
 import nullversionnova.novaslibrary.registry.BlockRegistry
 import nullversionnova.novaslibrary.registry.ItemRegistry
-import nullversionnova.novaslibrary.test.TestTabs
 import nullversionnova.novaslibrary.recipes.ShapelessRecipeBuilder
 import nullversionnova.novaslibrary.recipes.ShapedRecipeBuilder
 //#if MC >= 11903
@@ -19,8 +18,8 @@ import net.minecraft.data.recipes.RecipeCategory
 //#endif
 
 class Metal(val id: ResourceLocation) : Material {
-    private val blockRegistry = BlockRegistry(id.namespace) { TestTabs.TEST_TAB }
-    private val itemRegistry = ItemRegistry(id.namespace) { TestTabs.TEST_TAB }
+    private val blockRegistry = BlockRegistry(id.namespace)
+    private val itemRegistry = ItemRegistry(id.namespace)
 
     val INGOT : Item by itemRegistry.registerWithProperties("${id.path}_ingot")
     val NUGGET by itemRegistry.registerWithProperties("${id.path}_nugget")

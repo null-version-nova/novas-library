@@ -11,7 +11,6 @@ import nullversionnova.novaslibrary.recipes.ShapedRecipeBuilder
 import nullversionnova.novaslibrary.recipes.ShapelessRecipeBuilder
 import nullversionnova.novaslibrary.registry.BlockRegistry
 import nullversionnova.novaslibrary.registry.ItemRegistry
-import nullversionnova.novaslibrary.test.TestTabs
 //#if MC >= 11903
 import net.minecraft.data.recipes.RecipeCategory
 
@@ -20,16 +19,16 @@ import net.minecraft.data.recipes.RecipeCategory
 class RawOre(val id: ResourceLocation) : Material {
     constructor(namespace: String, path: String) : this(ResourceLocation(namespace,path))
     // Registries
-    private val block_registry = BlockRegistry(id.namespace) { TestTabs.TEST_TAB }
-    private val item_registry = ItemRegistry(id.namespace) { TestTabs.TEST_TAB }
+    private val blocks = BlockRegistry(id.namespace)
+    private val items = ItemRegistry(id.namespace)
 
     // Objects
-    val ORE : Item by item_registry.registerWithProperties(id.path)
-    val BLOCK by block_registry.registerWithItem("${id.path}_block") { Block(BlockBehaviour.Properties.copy(Blocks.RAW_IRON_BLOCK)) }
+    val ORE : Item by items.registerWithProperties(id.path)
+    val BLOCK by blocks.registerWithItem("${id.path}_block") { Block(BlockBehaviour.Properties.copy(Blocks.RAW_IRON_BLOCK)) }
 
     override fun register() {
-        block_registry.register()
-        item_registry.register()
+        blocks.register()
+        items.register()
 
         GeneralDataProcessing.registerRecipe {
             //#if MC>=11903
