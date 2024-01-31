@@ -54,13 +54,14 @@ kotlin {
 apply plugin: "com.igormaznitsa.jcp"
 
 tasks.register("merge") {
-    copy {
-        from('build/processed')
-        into('build/merged')
-    }
+
     inputs.files(fileTree('build/processed'),fileTree('src'))
     outputs.files(fileTree('build/merged'))
     doLast {
+        copy {
+            from('build/processed')
+            into('build/merged')
+        }
         fileTree('src').files.forEach {
             file("build/merged/${file('src').relativePath(it)}").delete()
         }
@@ -70,7 +71,8 @@ tasks.register("merge") {
     }
     outputs.upToDateWhen { false }
     dependsOn(preprocess)
-}
+
+}.get().mustRunAfter(preprocess)
 
 if (parent.name == "root") {
     sourceSets {

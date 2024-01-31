@@ -11,16 +11,18 @@ import nullversionnova.novaslibrary.recipes.ShapedRecipeAssembler
 import nullversionnova.novaslibrary.recipes.ShapelessRecipeAssembler
 import nullversionnova.novaslibrary.registry.BlockRegistry
 import nullversionnova.novaslibrary.registry.GenericRegistry
+import nullversionnova.novaslibrary.registry.ItemRegistry
 import nullversionnova.novaslibrary.registry.Registries
+import nullversionnova.novaslibrary.test.TestTabs
 
 class RawOre(val id: ResourceLocation) : Material {
     constructor(namespace: String, path: String) : this(ResourceLocation(namespace,path))
     // Registries
     private val block_registry = BlockRegistry(id.namespace)
-    private val item_registry = GenericRegistry(id.namespace, Registries.ITEM)
+    private val item_registry = ItemRegistry(id.namespace)
 
     // Objects
-    val ORE : Item by item_registry.register(id.path) { Item(Item.Properties()) }
+    val ORE : Item by item_registry.registerWithProperties(id.path)
     val BLOCK by block_registry.registerWithItem("${id.path}_block") { Block(BlockBehaviour.Properties.copy(Blocks.RAW_IRON_BLOCK)) }
 
     override fun register() {

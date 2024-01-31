@@ -9,7 +9,7 @@ import nullversionnova.novaslibrary.util.RegistryIterator
 
 
 open class GenericRegistry<T>(id: String,key : ResourceKey<Registry<T>>) : RegistryInterface<T>, Iterable<T> {
-    private val registry = DeferredRegister.create(id,key)
+    val registry = DeferredRegister.create(id,key)
     private val callbacks = mutableListOf<()->Unit>()
     private var _registered = false
 

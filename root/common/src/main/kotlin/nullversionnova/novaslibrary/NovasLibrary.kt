@@ -14,15 +14,11 @@ object NovasLibrary {
     fun init() {
         if (Platform.isDevelopmentEnvironment()) {
             try {
+                TestTabs.register()
                 TestEntities.register()
                 TestMaterials.register()
-                TestTabs.register()
-                LifecycleEvent.SETUP.register {
-                    TestTabs.TEST_TAB
-                    TestMaterials.UNOBTAINUM.INGOT
-                }
             } catch (e: Exception) {
-                print("Entity loading failed with exception ${e.message}")
+                println("Entity loading failed with exception ${e.message}")
             }
         }
     }

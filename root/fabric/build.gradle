@@ -178,8 +178,8 @@ if (parent.name == "root") {
     compileJava.dependsOn(merge)
     processResources.dependsOn(merge)
     sourcesJar.dependsOn(merge)
-    runDatagen.dependsOn(merge,parent.childProjects["common"].merge)
-    runClient.dependsOn(merge,parent.childProjects["common"].merge)
+    runDatagen.dependsOn(merge,parent.childProjects["common"].tasks.named("merge"))
+    runClient.dependsOn(merge,parent.childProjects["common"].tasks.named("merge"))
 
     sourceSets {
         main {
