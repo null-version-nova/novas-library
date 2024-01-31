@@ -1,4 +1,4 @@
-package nullversionnova.novaslibrary.registry
+package nullversionnova.novaslibrary.ui
 
 import dev.architectury.injectables.annotations.ExpectPlatform
 import net.minecraft.world.item.CreativeModeTab
@@ -12,3 +12,4 @@ object CreativeTabProcessing {
         throw AssertionError()
     }
 }
+//#excludeif MC<11902

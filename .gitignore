@@ -12,5 +12,4 @@ classes/
 *.launch
 
 **/.*
-/*/src/processed/
-/*/src/main/generated/
+/*/*/src/main/generated/

@@ -1,9 +1,9 @@
-package nullversionnova.novaslibrary.registry.fabric
+package nullversionnova.novaslibrary.ui.fabric
 
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.Item
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
+import net.minecraft.core.registries.BuiltInRegistries
 
 object CreativeTabProcessingImpl {
     @JvmStatic
@@ -13,3 +13,4 @@ object CreativeTabProcessingImpl {
         }
     }
 }
+//#excludeif MC<11902

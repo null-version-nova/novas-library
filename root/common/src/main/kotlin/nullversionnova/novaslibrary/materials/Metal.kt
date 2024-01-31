@@ -8,19 +8,19 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour
 import nullversionnova.novaslibrary.datagen.GeneralDataProcessing
 import nullversionnova.novaslibrary.interfaces.Material
-import nullversionnova.novaslibrary.recipes.ShapedRecipeAssembler
-import nullversionnova.novaslibrary.recipes.ShapelessRecipeAssembler
 import nullversionnova.novaslibrary.registry.BlockRegistry
-//#if MC >= 11903
-import net.minecraft.data.recipes.RecipeCategory
 import nullversionnova.novaslibrary.registry.ItemRegistry
 import nullversionnova.novaslibrary.test.TestTabs
+import nullversionnova.novaslibrary.recipes.ShapelessRecipeBuilder
+import nullversionnova.novaslibrary.recipes.ShapedRecipeBuilder
+//#if MC >= 11903
+import net.minecraft.data.recipes.RecipeCategory
 
 //#endif
 
 class Metal(val id: ResourceLocation) : Material {
-    private val blockRegistry = BlockRegistry(id.namespace,TestTabs.TEST_TAB)
-    private val itemRegistry = ItemRegistry(id.namespace,TestTabs.TEST_TAB)
+    private val blockRegistry = BlockRegistry(id.namespace) { TestTabs.TEST_TAB }
+    private val itemRegistry = ItemRegistry(id.namespace) { TestTabs.TEST_TAB }
 
     val INGOT : Item by itemRegistry.registerWithProperties("${id.path}_ingot")
     val NUGGET by itemRegistry.registerWithProperties("${id.path}_nugget")
@@ -38,23 +38,31 @@ class Metal(val id: ResourceLocation) : Material {
         RAW_ORE?.register()
 
         GeneralDataProcessing.registerRecipe {
-            ShapedRecipeAssembler(ResourceLocation(id.namespace,"${id.path}_nugget_to_ingot"),INGOT,1)
-                .withIngredients('x' to NUGGET)
-                .setShape("xxx\nxxxx\nxxx")
-                .send(it)
+            ShapedRecipeBuilder.shaped(INGOT)
+                .define('x',NUGGET)
+                .pattern("xxx")
+                .pattern("xxx")
+                .pattern("xxx")
+                .save(it,ResourceLocation(id.namespace,"${id.path}_nugget_to_ingot"))
 
-            ShapedRecipeAssembler(ResourceLocation(id.namespace,"${id.path}_ingot_to_block"),BLOCK,1)
-                .withIngredients('x' to INGOT)
-                .setShape("xxx\nxxxx\nxxx")
-                .send(it)
+            //#if MC>=11903
+            ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BLOCK)
+            //#else
+            //$ShapedRecipeBuilder.shaped(BLOCK)
+            //#endif
+                .define('x',INGOT)
+                .pattern("xxx")
+                .pattern("xxx")
+                .pattern("xxx")
+                .save(it,ResourceLocation(id.namespace,"${id.path}_ingot_to_block"))
 
-            ShapelessRecipeAssembler(ResourceLocation(id.namespace,"${id.path}_ingot_to_nugget"),NUGGET,9)
-                .requires(INGOT)
-                .send(it)
-
-            ShapelessRecipeAssembler(ResourceLocation(id.namespace,"${id.path}_block_to_ingot"),INGOT,9)
+            ShapelessRecipeBuilder.shapeless(NUGGET,9)
                 .requires(BLOCK)
-                .send(it)
+                .save(it, ResourceLocation(id.namespace,"${id.path}_block_to_ingot"))
+
+            ShapelessRecipeBuilder.shapeless(INGOT,9)
+                .requires(BLOCK)
+                .save(it, ResourceLocation(id.namespace,"${id.path}_block_to_ingot"))
 
             if (RAW_ORE != null) {
                 //#if MC>=11903

@@ -7,19 +7,21 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour
 import nullversionnova.novaslibrary.datagen.GeneralDataProcessing
 import nullversionnova.novaslibrary.interfaces.Material
-import nullversionnova.novaslibrary.recipes.ShapedRecipeAssembler
-import nullversionnova.novaslibrary.recipes.ShapelessRecipeAssembler
+import nullversionnova.novaslibrary.recipes.ShapedRecipeBuilder
+import nullversionnova.novaslibrary.recipes.ShapelessRecipeBuilder
 import nullversionnova.novaslibrary.registry.BlockRegistry
-import nullversionnova.novaslibrary.registry.GenericRegistry
 import nullversionnova.novaslibrary.registry.ItemRegistry
-import nullversionnova.novaslibrary.registry.Registries
 import nullversionnova.novaslibrary.test.TestTabs
+//#if MC >= 11903
+import net.minecraft.data.recipes.RecipeCategory
+
+//#endif
 
 class RawOre(val id: ResourceLocation) : Material {
     constructor(namespace: String, path: String) : this(ResourceLocation(namespace,path))
     // Registries
-    private val block_registry = BlockRegistry(id.namespace)
-    private val item_registry = ItemRegistry(id.namespace)
+    private val block_registry = BlockRegistry(id.namespace) { TestTabs.TEST_TAB }
+    private val item_registry = ItemRegistry(id.namespace) { TestTabs.TEST_TAB }
 
     // Objects
     val ORE : Item by item_registry.registerWithProperties(id.path)
@@ -30,13 +32,20 @@ class RawOre(val id: ResourceLocation) : Material {
         item_registry.register()
 
         GeneralDataProcessing.registerRecipe {
-            ShapedRecipeAssembler(ResourceLocation(id.namespace,"${id.path}_to_${id.path}_block"),BLOCK)
-                .withIngredients( 'x' to ORE )
-                .setShape("xxx\nxxx\nxxx")
-                .send(it)
-            ShapelessRecipeAssembler(ResourceLocation(id.namespace,"${id.path}_block_to_${id.path}"),ORE,9)
+            //#if MC>=11903
+            ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS,BLOCK)
+            //#else
+            //$ShapedRecipeBuilder.shaped(BLOCK)
+            //#endif
+                .define('x',ORE)
+                .pattern("xxx")
+                .pattern("xxx")
+                .pattern("xxx")
+                .save(it,ResourceLocation(id.namespace,"${id.path}_to_${id.path}_block"))
+
+            ShapelessRecipeBuilder.shapeless(ORE,9)
                 .requires(BLOCK)
-                .send(it)
+                .save(it,ResourceLocation(id.namespace,"${id.path}_block_to_${id.path}"))
         }
     }
 }

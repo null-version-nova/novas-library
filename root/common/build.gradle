@@ -88,6 +88,7 @@ if (parent.name == "root") {
     }
 } else {
     preprocess {
+        clearTarget = true
         sources = [file("../../root/${project.name}/src")]
         allowWhitespaces = false
         keepComments = 'remove_jcp_only'

@@ -10,7 +10,7 @@ import nullversionnova.novaslibrary.interfaces.RegistryInterface
 /**
  * This isn't actually a registry yet. It will be later though.
  */
-class CreativeTabRegistry(override val namespace: String) : RegistryInterface<CreativeModeTab> {
+open class CreativeTabRegistry(override val namespace: String) : RegistryInterface<CreativeModeTab> {
     private val tabs = mutableSetOf<CreativeModeTab>()
     /**
      * Not actually necessary in this version, it's just here for compatibility.
