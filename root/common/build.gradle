@@ -58,12 +58,14 @@ tasks.register("merge") {
         from('build/processed')
         into('build/merged')
     }
-    copy {
-        from('src')
-        into('build/merged')
-    }
     inputs.files(fileTree('build/processed'),fileTree('src'))
     outputs.files(fileTree('build/merged'))
+    doLast {
+        fileTree('src').files.forEach {
+            file("build/merged/${file('src').relativePath(it)}").delete()
+        }
+    }
+    outputs.upToDateWhen { false }
     dependsOn(preprocess)
 }
 
@@ -72,6 +74,9 @@ if (parent.name == "root") {
         main {
             kotlin {
                 srcDirs = ['src/main/kotlin']
+            }
+            java {
+                srcDirs = ['src/main/java']
             }
             resources {
                 srcDirs = ['src/main/resources','src/main/generated']
@@ -96,16 +101,20 @@ if (parent.name == "root") {
     compileKotlin.dependsOn(merge)
     compileJava.dependsOn(merge)
     transformProductionFabric.dependsOn(merge)
+    transformProductionForge.dependsOn(merge)
     processResources.dependsOn(merge)
     sourcesJar.dependsOn(merge)
 
     sourceSets {
         main {
             kotlin {
-                srcDirs = ['build/merged/main/kotlin', 'build/merged/main/java']
+                srcDirs = ['build/merged/main/kotlin', 'src/main/kotlin']
+            }
+            java {
+                srcDirs = ['build/merged/main/java','src/main/java']
             }
             resources {
-                srcDirs = ['build/merged/main/resources','build/merged/main/generated']
+                srcDirs = ['build/merged/main/resources','build/merged/main/generated','src/main/resources','src/main/generated']
             }
         }
     }

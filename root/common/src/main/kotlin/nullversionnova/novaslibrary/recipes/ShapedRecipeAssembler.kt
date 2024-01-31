@@ -6,11 +6,14 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.ItemLike
 import java.util.function.Consumer
+//#if MC >= 11903
+import net.minecraft.data.recipes.RecipeCategory
 
 class ShapedRecipeAssembler(val category: RecipeCategory,val id: ResourceLocation, val output: ItemLike, val quantity: Int = 1) {
-    constructor(category: RecipeCategory,namespace: String, path: String, output: ItemLike, quantity: Int = 1) : this(category,ResourceLocation(namespace,path),output,quantity)
-    constructor(namespace: String,path: String,output: ItemLike,quantity: Int = 1) : this(RecipeCategories.MISC,namespace, path, output, quantity)
-    constructor(id: ResourceLocation,output: ItemLike,quantity: Int = 1) : this(RecipeCategories.MISC,id, output, quantity)
+    constructor(id: ResourceLocation,output: ItemLike,quantity: Int = 1) : this(RecipeCategory.MISC,id, output, quantity)
+//#else
+//$class ShapedRecipeAssembler(val id: ResourceLocation, val output: ItemLike, val quantity: Int = 1) {
+//#endif
 
     private lateinit var ingredients : Map<Char,ItemLike>
     var shape : String? = null

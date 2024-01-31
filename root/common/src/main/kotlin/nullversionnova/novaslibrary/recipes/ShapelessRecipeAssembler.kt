@@ -9,8 +9,14 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.level.ItemLike
 import java.util.function.Consumer
+//#if MC >=11903
+import net.minecraft.data.recipes.RecipeCategory
 
 class ShapelessRecipeAssembler(val category: RecipeCategory, val id: ResourceLocation, val output: ItemLike, val quantity: Int = 1) {
+    constructor(id: ResourceLocation, output: ItemLike,quantity: Int = 1) : this(RecipeCategory.MISC,id,output,quantity)
+//#else
+//$class ShapelessRecipeAssembler(val id: ResourceLocation, val output: ItemLike, val quantity: Int = 1) {
+//#endif
     val ingredients = mutableListOf<Ingredient>()
     fun requires(vararg ingredient: Ingredient) : ShapelessRecipeAssembler {
         ingredients.addAll(ingredient)
