@@ -6,11 +6,11 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 import nullversionnova.novaslibrary.util.RegistryDelegate
 
-open class BlockRegistry(id: String, tab: (() -> CreativeModeTab)? = null) : GenericRegistry<Block>(id, Registries.BLOCK) {
+open class BlockRegistry(id: String, tab: CreativeModeTab? = null) : GenericRegistry<Block>(id, Registries.BLOCK) {
     private val items = ItemRegistry(id,tab)
 
     fun <U : Block> registerWithItem(path : String, constructor : () -> U) : RegistryDelegate<U> {
-        return registerWithItem(path,{Item.Properties()},constructor)
+        return registerWithItem(path,{items.getProperties()},constructor)
     }
     fun <U : Block> registerWithItem(path: String, properties: () -> Item.Properties, constructor: () -> U) : RegistryDelegate<U> {
         val block = register(path,constructor)

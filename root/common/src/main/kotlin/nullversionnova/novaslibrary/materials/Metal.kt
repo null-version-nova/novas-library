@@ -19,8 +19,8 @@ import nullversionnova.novaslibrary.test.TestTabs
 //#endif
 
 class Metal(val id: ResourceLocation) : Material {
-    private val blockRegistry = BlockRegistry(id.namespace)
-    private val itemRegistry = ItemRegistry(id.namespace) { TestTabs.TEST_TAB }
+    private val blockRegistry = BlockRegistry(id.namespace,TestTabs.TEST_TAB)
+    private val itemRegistry = ItemRegistry(id.namespace,TestTabs.TEST_TAB)
 
     val INGOT : Item by itemRegistry.registerWithProperties("${id.path}_ingot")
     val NUGGET by itemRegistry.registerWithProperties("${id.path}_nugget")
