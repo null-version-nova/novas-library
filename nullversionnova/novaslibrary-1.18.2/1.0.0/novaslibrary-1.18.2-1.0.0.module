@@ -1,0 +1,116 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "nullversionnova",
+    "module": "novaslibrary-1.18.2",
+    "version": "1.0.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.4"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "dev.architectury",
+          "module": "architectury",
+          "version": {
+            "requires": "4.11.93"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "novaslibrary-1.18.2-1.0.0.jar",
+          "url": "novaslibrary-1.18.2-1.0.0.jar",
+          "size": 23936,
+          "sha512": "94d3386d8b39bfd297033708a65423e05651bcd8ddf904bc8e6e9657818b80bd375e982a43f3d508273d9813e0bdaeafc2e8549e422107d36cdb7445d6440342",
+          "sha256": "477c3dcb310ba733add714f6715055c99bee6fd2997c69f1e272fb6eb55041fe",
+          "sha1": "dee9991423192cc3b3cfb550acb52870b5e501d4",
+          "md5": "6fb68fa9086d2b944b63cce4f991e6b7"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.8.21"
+          }
+        },
+        {
+          "group": "dev.architectury",
+          "module": "architectury",
+          "version": {
+            "requires": "4.11.93"
+          }
+        },
+        {
+          "group": "net.fabricmc",
+          "module": "fabric-loader",
+          "version": {
+            "requires": "0.15.3"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "novaslibrary-1.18.2-1.0.0.jar",
+          "url": "novaslibrary-1.18.2-1.0.0.jar",
+          "size": 23936,
+          "sha512": "94d3386d8b39bfd297033708a65423e05651bcd8ddf904bc8e6e9657818b80bd375e982a43f3d508273d9813e0bdaeafc2e8549e422107d36cdb7445d6440342",
+          "sha256": "477c3dcb310ba733add714f6715055c99bee6fd2997c69f1e272fb6eb55041fe",
+          "sha1": "dee9991423192cc3b3cfb550acb52870b5e501d4",
+          "md5": "6fb68fa9086d2b944b63cce4f991e6b7"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "novaslibrary-1.18.2-1.0.0-sources.jar",
+          "url": "novaslibrary-1.18.2-1.0.0-sources.jar",
+          "size": 7168,
+          "sha512": "907f23c2168441da94884ded5243e44befb573a5554f34a894646e555536a29c5729f09099af96a46c379492c515ced01e2fb84289e93a5dde75500274ac1341",
+          "sha256": "b2ecbe92405a04c6681c5f75e5a0a8baea1e187b76cfeb5f04596025fdb18d5c",
+          "sha1": "387d63812e1bfbca77c470f76df0bfb9764cd375",
+          "md5": "17bcfc41912ef70b4bc02eab4369de23"
+        }
+      ]
+    }
+  ]
+}

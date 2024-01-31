@@ -1,0 +1,123 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "nullversionnova",
+    "module": "novaslibrary-forge-1.20.1",
+    "version": "1.1.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.4"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.8.21"
+          }
+        },
+        {
+          "group": "dev.architectury",
+          "module": "architectury-forge",
+          "version": {
+            "requires": "9.1.12"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "novaslibrary-forge-1.20.1-1.1.0.jar",
+          "url": "novaslibrary-forge-1.20.1-1.1.0.jar",
+          "size": 72742,
+          "sha512": "888afc10606b7fff9555120eaab3e4a23e0f6bdff155d06f6c20fd31168c6de3571152fc53dafaf57cfe6029af4682e82ae4dc5fab3fc36e3fb5e86b6c30e4d7",
+          "sha256": "5ebf71e472b4b188c157d2980a04846b2b81352d19fc8ade8ce8ca19adaea3bb",
+          "sha1": "033f88bf71e8170c32b2b7b531124f8d3b934c04",
+          "md5": "05d271bca28e15d8b9da6f045b25938b"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "thedarkcolour",
+          "module": "kotlinforforge",
+          "version": {
+            "requires": "4.10.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.8.21"
+          }
+        },
+        {
+          "group": "dev.architectury",
+          "module": "architectury-forge",
+          "version": {
+            "requires": "9.1.12"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "novaslibrary-forge-1.20.1-1.1.0.jar",
+          "url": "novaslibrary-forge-1.20.1-1.1.0.jar",
+          "size": 72742,
+          "sha512": "888afc10606b7fff9555120eaab3e4a23e0f6bdff155d06f6c20fd31168c6de3571152fc53dafaf57cfe6029af4682e82ae4dc5fab3fc36e3fb5e86b6c30e4d7",
+          "sha256": "5ebf71e472b4b188c157d2980a04846b2b81352d19fc8ade8ce8ca19adaea3bb",
+          "sha1": "033f88bf71e8170c32b2b7b531124f8d3b934c04",
+          "md5": "05d271bca28e15d8b9da6f045b25938b"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "novaslibrary-forge-1.20.1-1.1.0-sources.jar",
+          "url": "novaslibrary-forge-1.20.1-1.1.0-sources.jar",
+          "size": 19443,
+          "sha512": "34b88493584cfc2543cfa7fec40272dfedd6e8b06ad39d384005db38dbbfbf1f2cae51dece763c0a0d6336afc9623bfffe4c1e9148adddcecd92877d8b9c9455",
+          "sha256": "3be801320ee3d2079ff606e7a4a0b4584bcb50aa2bb7ab9fc64babbc2a0c2c87",
+          "sha1": "738d9e172f76802404881826a38cf18594ab4a0e",
+          "md5": "ec7b1d4b5df4bf08f933a4c436c73e66"
+        }
+      ]
+    }
+  ]
+}
