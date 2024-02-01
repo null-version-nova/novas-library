@@ -5,5 +5,5 @@ import nullversionnova.novaslibrary.NovasLibrary
 import nullversionnova.novaslibrary.registry.CreativeTabRegistry
 
 object TestTabs : CreativeTabRegistry(NovasLibrary.MOD_ID) {
-    val TEST_TAB by register("test_tab") { Items.WHEAT }
+    val TEST_TAB by registerWithIcon("test_tab") { Items.WHEAT }
 }

@@ -16,7 +16,7 @@ import net.minecraft.data.recipes.RecipeCategory
 
 //#endif
 
-class RawOre(val id: ResourceLocation) : Material {
+open class RawOre(val id: ResourceLocation) : Material {
     constructor(namespace: String, path: String) : this(ResourceLocation(namespace,path))
     // Registries
     private val blocks = BlockRegistry(id.namespace)

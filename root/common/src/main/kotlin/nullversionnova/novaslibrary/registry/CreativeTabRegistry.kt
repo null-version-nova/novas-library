@@ -8,9 +8,8 @@ import net.minecraft.world.level.ItemLike
 import nullversionnova.novaslibrary.util.RegistryDelegate
 
 open class CreativeTabRegistry(id: String) : GenericRegistry<CreativeModeTab>(id,Registries.CREATIVE_MODE_TAB) {
-    @JvmName("creativeTabRegister")
-    fun register(path: String, constructor: () -> ItemLike) : RegistryDelegate<CreativeModeTab> {
-        return register<CreativeModeTab>(path) {
+    open fun registerWithIcon(path: String, constructor: () -> ItemLike) : RegistryDelegate<CreativeModeTab> {
+        return register(path) {
             CreativeTabRegistry.create(Component.translatable(path)) {
                 ItemStack(constructor())
             }

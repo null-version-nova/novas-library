@@ -17,7 +17,7 @@ import net.minecraft.data.recipes.RecipeCategory
 
 //#endif
 
-class Metal(val id: ResourceLocation) : Material {
+open class Metal(val id: ResourceLocation) : Material {
     private val blockRegistry = BlockRegistry(id.namespace)
     private val itemRegistry = ItemRegistry(id.namespace)
 

@@ -7,8 +7,8 @@ import nullversionnova.novaslibrary.util.RegistryDelegate
 import nullversionnova.novaslibrary.ui.CreativeTabProcessing
 //#endif
 
-class ItemRegistry(id: String, val tab: (() -> CreativeModeTab)? = null) : GenericRegistry<Item>(id,Registries.ITEM) {
-    fun registerWithProperties(path : String, properties: () -> Item.Properties = {Item.Properties()}) : RegistryDelegate<Item> {
+open class ItemRegistry(id: String, val tab: (() -> CreativeModeTab)? = null) : GenericRegistry<Item>(id,Registries.ITEM) {
+    open fun registerWithProperties(path : String, properties: () -> Item.Properties = {Item.Properties()}) : RegistryDelegate<Item> {
         return register(path) { Item(getProperties(properties())) }
     }
     override fun <U : Item> register(path : String, constructor: () -> U) : RegistryDelegate<U> {

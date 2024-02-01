@@ -1,18 +1,19 @@
 package nullversionnova.novaslibrary.registry
 
 import nullversionnova.novaslibrary.interfaces.Material
+import nullversionnova.novaslibrary.interfaces.RegistryInterface
 
 abstract class MaterialRegistry : Iterable<Material> {
     private val materials = mutableSetOf<Material>()
     private val callbacks = mutableListOf<()->Unit>()
     private val is_registered = false
 
-    fun register() {
+    open fun register() {
         forEach { it.register() }
         callbacks.forEach { it() }
     }
 
-    fun <T : Material> registerMaterial(constructor: () -> T) : T {
+    open fun <T : Material> registerMaterial(constructor: () -> T) : T {
         constructor().apply {
             materials.add(this)
             return this
