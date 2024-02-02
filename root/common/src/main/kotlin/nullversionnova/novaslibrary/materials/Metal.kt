@@ -1,9 +1,11 @@
 package nullversionnova.novaslibrary.materials
 
+//#if MC >= 11903
+import net.minecraft.data.recipes.RecipeCategory
+//#endif
 import net.minecraft.data.recipes.RecipeProvider
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
-import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour
 import nullversionnova.novaslibrary.datagen.GeneralDataProcessing
@@ -12,22 +14,19 @@ import nullversionnova.novaslibrary.registry.BlockRegistry
 import nullversionnova.novaslibrary.registry.ItemRegistry
 import nullversionnova.novaslibrary.recipes.ShapelessRecipeBuilder
 import nullversionnova.novaslibrary.recipes.ShapedRecipeBuilder
-//#if MC >= 11903
-import net.minecraft.data.recipes.RecipeCategory
+import nullversionnova.novaslibrary.blocks.BaseMineableBlock
 
-//#endif
-
-open class Metal(val id: ResourceLocation) : Material {
+open class Metal(val id: ResourceLocation, val level: Int = 1) : Material {
     private val blockRegistry = BlockRegistry(id.namespace)
     private val itemRegistry = ItemRegistry(id.namespace)
 
     val INGOT : Item by itemRegistry.registerWithProperties("${id.path}_ingot")
     val NUGGET by itemRegistry.registerWithProperties("${id.path}_nugget")
-    val BLOCK by blockRegistry.registerWithItem("${id.path}_block") { Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)) }
+    val BLOCK by blockRegistry.registerWithItem("${id.path}_block") { BaseMineableBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK),level) }
     var RAW_ORE : RawOre? = null
 
     fun withRawOre() : Metal {
-        RAW_ORE = RawOre(id.namespace,"raw_${id.path}")
+        RAW_ORE = RawOre(ResourceLocation(id.namespace,"raw_${id.path}"),level,this)
         return this
     }
 
@@ -53,25 +52,18 @@ open class Metal(val id: ResourceLocation) : Material {
                 .pattern("xxx")
                 .pattern("xxx")
                 .pattern("xxx")
+                .unlockedBy("Inventory Change",RecipeProvider.inventoryTrigger())
                 .save(it,ResourceLocation(id.namespace,"${id.path}_ingot_to_block"))
 
             ShapelessRecipeBuilder.shapeless(NUGGET,9)
-                .requires(BLOCK)
-                .save(it, ResourceLocation(id.namespace,"${id.path}_block_to_ingot"))
+                .requires(INGOT)
+                .unlockedBy("Inventory Change",RecipeProvider.inventoryTrigger())
+                .save(it, ResourceLocation(id.namespace,"${id.path}_ingot_to_nugget"))
 
             ShapelessRecipeBuilder.shapeless(INGOT,9)
                 .requires(BLOCK)
+                .unlockedBy("Inventory Change",RecipeProvider.inventoryTrigger())
                 .save(it, ResourceLocation(id.namespace,"${id.path}_block_to_ingot"))
-
-            if (RAW_ORE != null) {
-                //#if MC>=11903
-                RecipeProvider.oreSmelting(it, listOf(RAW_ORE!!.ORE), RecipeCategory.MISC,INGOT, 1.0F,200,"${id.path}_ingot")
-                RecipeProvider.oreBlasting(it, listOf(RAW_ORE!!.ORE), RecipeCategory.MISC,INGOT, 1.0F,100,"${id.path}_ingot")
-                //#else
-                //$RecipeProvider.oreSmelting(it, listOf(RAW_ORE!!.ORE),INGOT,1.0F,200,"${id.path}_ingot")
-                //$RecipeProvider.oreBlasting(it, listOf(RAW_ORE!!.ORE),INGOT,1.0F,100,"${id.path}_ingot")
-                //#endif
-            }
         }
     }
 }

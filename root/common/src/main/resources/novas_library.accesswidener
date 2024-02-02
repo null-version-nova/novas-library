@@ -6,3 +6,5 @@ accessible method net/minecraft/data/recipes/RecipeProvider oreSmelting (Ljava/u
 accessible method net/minecraft/data/recipes/RecipeProvider oreBlasting (Ljava/util/function/Consumer;Ljava/util/List;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/level/ItemLike;FILjava/lang/String;)V
 accessible method net/minecraft/data/recipes/RecipeProvider twoByTwoPacker (Ljava/util/function/Consumer;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/level/ItemLike;Lnet/minecraft/world/level/ItemLike;)V
 accessible method net/minecraft/data/recipes/RecipeProvider threeByThreePacker (Ljava/util/function/Consumer;Lnet/minecraft/data/recipes/RecipeCategory;Lnet/minecraft/world/level/ItemLike;Lnet/minecraft/world/level/ItemLike;)V
+accessible method net/minecraft/data/loot/BlockLootSubProvider dropSelf (Lnet/minecraft/world/level/block/Block;)V
+accessible method net/minecraft/data/models/ItemModelGenerators generateFlatItem (Lnet/minecraft/world/item/Item;Lnet/minecraft/data/models/model/ModelTemplate;)V

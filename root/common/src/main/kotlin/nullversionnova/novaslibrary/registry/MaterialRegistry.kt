@@ -1,7 +1,6 @@
 package nullversionnova.novaslibrary.registry
 
 import nullversionnova.novaslibrary.interfaces.Material
-import nullversionnova.novaslibrary.interfaces.RegistryInterface
 
 abstract class MaterialRegistry : Iterable<Material> {
     private val materials = mutableSetOf<Material>()
